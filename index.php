@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration System</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="table-styles.css">
 </head>
 <body>
     <div class="container">
@@ -96,7 +97,7 @@
 
                 <div class="form-group">
                     <label>Profile Image:</label>
-                    <input type="file" name="profile_image" accept="image/*">
+                    <input type="file" name="profile_image" accept="*">
                 </div>
 
                 <div class="form-group">

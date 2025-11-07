@@ -50,22 +50,55 @@ function loadUsers() {
     .then(data => {
         const usersList = document.getElementById('usersList');
         if (data.success && data.users.length > 0) {
-            usersList.innerHTML = data.users.map(user => `
-                <div class="user-card">
-                    <h3>${user.name}</h3>
-                    <p><strong>Email:</strong> ${user.email}</p>
-                    <p><strong>Phone:</strong> ${user.phone || 'N/A'}</p>
-                    <p><strong>Gender:</strong> ${user.gender}</p>
-                    <p><strong>Birth Date:</strong> ${user.birth_date || 'N/A'}</p>
-                    <p><strong>Website:</strong> ${user.website_url || 'N/A'}</p>
-                    <p><strong>Salary Range:</strong> $${user.salary_range}</p>
-                    <p><strong>Newsletter:</strong> ${user.newsletter ? 'Yes' : 'No'}</p>
-                    <div class="user-actions">
-                        <button class="edit-btn" onclick="editUser(${user.id})">Edit</button>
-                        <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
-                    </div>
-                </div>
-            `).join('');
+            usersList.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Uploaded File</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Birth Date</th>
+                            <th>Birth Time</th>
+                            <th>Birth Month</th>
+                            <th>Birth Week</th>
+                            <th>Birth DateTime</th>
+                            <th>Website</th>
+                            <th>Gender</th>
+                            <th>Color</th>
+                            <th>Salary</th>
+                            <th>Bio</th>
+                            <th>Newsletter</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.users.map(user => `
+                            <tr>
+                                <td>${user.profile_image ? (user.file_type && user.file_type.startsWith('image/') ? `<img src="data:${user.file_type};base64,${user.profile_image}" alt="Profile" class="profile-img" onerror="this.style.display='none'; this.parentNode.innerHTML='Invalid Image'">` : `<a href="data:${user.file_type};base64,${user.profile_image}" download="${user.file_name || 'file'}">${user.file_name || 'File'}</a>`) : 'No File'}</td>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>${user.phone || 'N/A'}</td>
+                                <td>${user.birth_date || 'N/A'}</td>
+                                <td>${user.birth_time || 'N/A'}</td>
+                                <td>${user.birth_month || 'N/A'}</td>
+                                <td>${user.birth_week || 'N/A'}</td>
+                                <td>${user.birth_datetime || 'N/A'}</td>
+                                <td>${user.website_url || 'N/A'}</td>
+                                <td>${user.gender}</td>
+                                <td><div style="width:20px;height:20px;background:${user.profile_color};border-radius:50%;"></div></td>
+                                <td>$${user.salary_range}</td>
+                                <td>${user.bio || 'N/A'}</td>
+                                <td>${user.newsletter ? 'Yes' : 'No'}</td>
+                                <td>
+                                    <button class="edit-btn" onclick="editUser(${user.id})">Edit</button>
+                                    <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
         } else {
             usersList.innerHTML = '<p>No users found.</p>';
         }

@@ -17,7 +17,9 @@ CREATE TABLE users (
     profile_color VARCHAR(7) DEFAULT '#000000',
     salary_range INT DEFAULT 50000,
     bio TEXT,
-    profile_image VARCHAR(255),
+    profile_image LONGBLOB,
+    file_name VARCHAR(255),
+    file_type VARCHAR(100),
     newsletter BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
